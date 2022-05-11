@@ -1,0 +1,125 @@
+<html>
+      <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   
+    </head>
+            <style>
+            ::placeholder{
+            color: lightcoral;
+            } 
+            input, textarea{
+            color: black;
+            border-color: transparent;
+            background-color: white;
+            padding-top:9px;
+            padding-bottom:9px;
+            padding-left:10px;
+            padding-right:10px;
+            margin:3px;
+            font-weight: bold;
+            border-radius: 5px;
+            }
+            .container {
+            margin-top :1cm;
+            margin-bottom :1cm;
+            border-radius: 5px;
+            background-color: Lavender;
+            padding: 20px;
+            }
+            label{
+            color: darkcyan;
+            font-size: 20px;
+            }
+            a:active, a:visited {
+                color: white;
+            }
+            </style>
+    <body>
+    
+      <center>  
+      <div class="container"> <center> 
+      
+                  <textarea id="rawText" type="text" placeholder="Enter original text: " cols=100 rows=4></textarea><br><br>
+                  <input type="number" name="key1" id="key1" max="25" min="1" placeholder="key" >  &nbsp;&nbsp;&nbsp;
+                  <button id="cipher" class="btn btn-primary" style="background-color: darkcyan;" onclick="cipher();" >Cipher</button> <br><br><br>
+                  <textarea name="ciphered" cols=100 rows=4 id="ciphered" hidden disabled></textarea> 
+                  <button id="save1" class="btn btn-primary" style="background-color: rgb(250, 174, 174);" onclick="saveCipheredText();" hidden >
+                    <a id='linka'>Save</a></button> <br>
+       </center>
+        </div>
+        </center>
+        
+         <center>  
+      <div class="container" style="background-color: pink;"> <center> 
+    
+                  <textarea id="secretText" type="text" placeholder="Enter ciphered text: " cols=100 rows=4></textarea> <br><br>
+                  <input type="number" name="key2" id="key2" max="25" min="1" placeholder="key" >  &nbsp;&nbsp;&nbsp;
+                  <button id="decipher" class="btn btn-primary" style="background-color: darkcyan;" onclick="Decipher();" >Decipher</button> <br><br>
+                  <textarea name="deciphered" cols=100 rows=4 id="deciphered" hidden disabled></textarea>
+                   <button id="save2" class="btn btn-primary" style="background-color: rgb(250, 174, 174);" onclick="saveDecipheredText();" hidden >
+                    <a id='linkb'>Save</a></button> <br>
+       </center>
+        </div>
+        </center>
+        
+    </body>
+    <script>
+        function cipher(){
+
+           var myrawstring = document.getElementById("rawText").value;
+            var ascii = [myrawstring.length];
+            var key = document.getElementById("key1").value;
+            var mynewstring = "";
+
+             for (let i = 0; i < myrawstring.length; i++) {
+              ascii[i]  = ((+myrawstring.charCodeAt(i)) + (+key));
+            }
+             for (let i = 0; i < ascii.length; i++) {
+              mynewstring  += String.fromCharCode(ascii[i]);
+            }
+            document.getElementById("ciphered").value = mynewstring;
+            document.getElementById("ciphered").removeAttribute("hidden");
+            document.getElementById("save1").removeAttribute("hidden");
+        }
+        function Decipher(){
+        
+          var cipheredstring = document.getElementById("secretText").value;
+         var ascii = [cipheredstring.length];
+            var key = document.getElementById("key2").value;
+            var mynewstring = "";
+            
+         for (let i = 0; i < cipheredstring.length; i++) {
+              ascii[i]  = ((+cipheredstring.charCodeAt(i)) - (+key));
+            }
+             for (let i = 0; i < ascii.length; i++) {
+              mynewstring  += String.fromCharCode(ascii[i]);
+            }
+            
+         document.getElementById("deciphered").value = mynewstring;
+            document.getElementById("deciphered").removeAttribute("hidden");
+            document.getElementById("save2").removeAttribute("hidden");
+        }
+        function saveCipheredText() {
+            var text = document.getElementById("ciphered").value;
+            var key = document.getElementById("key1").value;
+            var a = document.getElementById('linka');
+            var file = new Blob([text], {type: 'text/plain'});
+            a.href = URL.createObjectURL(file);
+            a.download = key+'.txt';
+           }
+ 	function saveDecipheredText() {
+
+       var text = document.getElementById("deciphered").value;
+            var key = document.getElementById("key2").value;
+            var a = document.getElementById('linkb');
+            var file = new Blob([text], {type: 'text/plain'});
+            a.href = URL.createObjectURL(file);
+            a.download = key+'.txt';
+        }
+    </script>
+    <script src="js/FileSaver.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</html>
